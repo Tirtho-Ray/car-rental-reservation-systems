@@ -39,13 +39,17 @@ The Car Rental Reservation System is a backend API designed to manage car rental
 4. Create a `.env` file in the root directory and add the following environment variables:
     ```env
     PORT=5000
-    MONGO_URI=your_mongodb_uri
-    JWT_SECRET=your_jwt_secret
+    JWT_ACCESS_SECRET=secret
+    JWT_ACCESS_EXPIRES_IN=7d
+    JWT_REFRESH_SECRET=refreshsecret
+    JWT_REFRESH_EXPIRES_IN=1y
     ```
 
 5. Start the server:
     ```bash
-    npm run dev
+    spread two terminal
+    tsc -w
+    npm run start:Server
     ```
 
 ## API Endpoints
