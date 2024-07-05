@@ -119,6 +119,72 @@ const getUserBookings = async (userId: string) => {
 // };
 
 
+// const returnCar = async (_id: string, endTime: string, token: string): Promise<TBooking | null> => {
+//   try {
+//     // Verify and decode the token to check if the user is an admin
+//     const decoded = jwt.verify(token, config.JWT_ACCESS_SECRET as string) as IDecodedToken;
+
+//     // Find the booking by ID
+//     const booking = await Booking.findById(_id).populate('user', '_id name email role phone address')
+//       .populate('carId');
+//     // console.log(booking);
+
+//     if (!booking) {
+//       throw new Error('Booking not found');
+//     }
+
+//     // Check if the decoded user is an admin
+//     if (decoded.role !== 'admin') {
+//       throw new Error('Unauthorized access');
+//     }
+
+//     // Update endTime of the booking
+//     booking.endTime = endTime; // This line updates the endTime field
+
+//     // Convert startTime and endTime to numerical hours
+//     const startTimeHours = convertTimeToHours(booking.startTime);
+//     const endTimeHours = convertTimeToHours(endTime);
+
+//     // Calculate the duration in hours
+//     const durationHours = endTimeHours - startTimeHours;
+
+//     // Calculate total cost
+//     const car = await Cars.findById(booking.carId);
+//     if (!car) {
+//       throw new Error('Car not found');
+//     }
+//     const totalCost = durationHours * car.pricePerHour;
+
+//     // Update the booking with the total cost
+//     booking.totalCost = totalCost;
+
+//     // Update status  car to "available"
+//     const updatedCar = await Cars.findByIdAndUpdate(
+//       booking.carId,
+//       { status: 'available' },
+//       { new: true }
+//     );
+
+//     if (!updatedCar) {
+//       throw new Error('Car not found');
+//     }
+
+//     // Save booking changes including endTime and totalCost update
+//     await booking.save();
+
+//     return booking; // Return the updated booking object
+//   } catch (error) {
+//     // console.error('Error returning car:', error);
+//     throw new Error('Error returning car');
+//   }
+// };
+
+// Helper function to convert time string to hours
+// const convertTimeToHours = (time: string): number => {
+//   const [hours, minutes] = time.split(':').map(Number);
+//   return hours + minutes / 60;
+// };
+
 const returnCar = async (_id: string, endTime: string, token: string): Promise<TBooking | null> => {
   try {
     // Verify and decode the token to check if the user is an admin
@@ -127,7 +193,6 @@ const returnCar = async (_id: string, endTime: string, token: string): Promise<T
     // Find the booking by ID
     const booking = await Booking.findById(_id).populate('user', '_id name email role phone address')
       .populate('carId');
-    // console.log(booking);
 
     if (!booking) {
       throw new Error('Booking not found');
@@ -139,7 +204,7 @@ const returnCar = async (_id: string, endTime: string, token: string): Promise<T
     }
 
     // Update endTime of the booking
-    booking.endTime = endTime; // This line updates the endTime field
+    booking.endTime = endTime;
 
     // Convert startTime and endTime to numerical hours
     const startTimeHours = convertTimeToHours(booking.startTime);
@@ -158,7 +223,7 @@ const returnCar = async (_id: string, endTime: string, token: string): Promise<T
     // Update the booking with the total cost
     booking.totalCost = totalCost;
 
-    // Update status  car to "available"
+    // Update status of the car to "available"
     const updatedCar = await Cars.findByIdAndUpdate(
       booking.carId,
       { status: 'available' },
@@ -174,7 +239,6 @@ const returnCar = async (_id: string, endTime: string, token: string): Promise<T
 
     return booking; // Return the updated booking object
   } catch (error) {
-    // console.error('Error returning car:', error);
     throw new Error('Error returning car');
   }
 };

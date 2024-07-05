@@ -19,6 +19,7 @@ const updateCarIntoDB = async (id: string, payload: Partial<TCars>) => {
     return car;
   }
   
+  
   const deleteCarIntoDB = async (id: string) => {
     const car = await Cars.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
     return car;

@@ -20,14 +20,15 @@ const CarsSchema = new Schema<TCars>(
       type: Boolean,
       required: true,
     },
-    features: {
-      type: [String],
-      enum: {
-        values: Features,
-        message: '{VALUE} is not a valid feature',
-      },
-      required: true,
-    },
+    // features: {
+    //   type: [String],
+    //   enum: {
+    //     values: Features,
+    //     message: '{VALUE} is not a valid feature',
+    //   },
+    //   required: true,
+    // },
+    features: { type: [String], enum: Features, required: true },
     pricePerHour: {
       type: Number,
       required: true,

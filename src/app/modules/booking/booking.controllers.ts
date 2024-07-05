@@ -60,20 +60,33 @@ const getUserBookings = catchAsync(async (req ,res) => {
     // console.log(`user booking:${userBookings}`);
   });
 
-  const returnCar =catchAsync( async (req, res) => {
+  // const returnCar =catchAsync( async (req, res) => {
+  //   const { bookingId, endTime } = req.body;
+  //   const token = req.headers.authorization?.split(' ')[1]; // Assuming 'Bearer <token>'
+  
+ 
+  //     const updatedBooking = await BookingServices.returnCar(bookingId, endTime, token as string);
+  
+  //     res.status(httpStatus.OK).json({
+  //       success: true,
+  //       statusCode: httpStatus.OK,
+  //       message: 'Car returned successfully',
+  //       data: updatedBooking,
+  //     });
+    
+  // });
+  const returnCar = catchAsync(async (req, res) => {
     const { bookingId, endTime } = req.body;
     const token = req.headers.authorization?.split(' ')[1]; // Assuming 'Bearer <token>'
   
- 
-      const updatedBooking = await BookingServices.returnCar(bookingId, endTime, token as string);
+    const updatedBooking = await BookingServices.returnCar(bookingId, endTime, token as string);
   
-      res.status(httpStatus.OK).json({
-        success: true,
-        statusCode: httpStatus.OK,
-        message: 'Car returned successfully',
-        data: updatedBooking,
-      });
-    
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Car returned successfully',
+      data: updatedBooking,
+    });
   });
   
 
